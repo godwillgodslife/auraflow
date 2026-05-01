@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraFlow | AI Support Workspace</title>
+    <meta
+      name="description"
+      content="AuraFlow by Neway Marketing Enterprises: branded AI support workspace for omnichannel conversations, leads, and follow-up."
+    />
+    <meta name="theme-color" content="#8f2fff" />
+    <meta property="og:title" content="AuraFlow" />
+    <meta property="og:description" content="AI support workspace for omnichannel conversations, leads, and follow-up." />
+    <meta property="og:image" content="https://auraflow-neway.netlify.app/assets/brand/og-preview.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/x-icon" href="/assets/brand/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/assets/brand/logo-mark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+    <script>
+      (function () {
+        var resolved = 'dark';
+        try {
+          var raw = window.localStorage.getItem('auraflow.ui-state');
+          var parsed = raw ? JSON.parse(raw) : {};
+          var preference = String((parsed && parsed.themePreference) || 'system').toLowerCase();
+          if (!['system', 'light', 'dark'].includes(preference)) preference = 'system';
+          resolved = preference === 'system'
+            ? (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : preference;
+        } catch (error) {
+          resolved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+        var themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) themeMeta.setAttribute('content', resolved === 'light' ? '#ffffff' : '#8f2fff');
+      })();
+    </script>
+    <script src="/runtime-config.js"></script>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <section class="auth-overlay" data-auth-overlay>
+      <div class="auth-shell auth-gate">
+        <article class="auth-panel hero-auth">
+          <p class="eyebrow">Supabase auth</p>
+          <h2>Sign in to AuraFlow</h2>
+          <p>Access your workspace, conversations, and AI support agent from one place.</p>
+          <form class="auth-form" data-auth-form>
+            <label><span>Email address</span><input id="auth-email" type="email" autocomplete="email" placeholder="founder@company.com" /></label>
+            <label><span>Password</span><input id="auth-password" type="password" autocomplete="current-password" placeholder="••••••••" /></label>
+            <button class="primary-button" type="submit">Sign in</button>
+            <button class="ghost-button" type="button" data-signup-action>Create account</button>
+          </form>
+          <p class="muted auth-note">Use sign in for an existing user. Use create account once for a new workspace owner.</p>
+          <div class="mini-status muted" data-auth-status>Waiting for sign-in.</div>
+        </article>
+
+        <div class="auth-side">
+          <article class="auth-panel">
+            <p class="eyebrow">Workspace bootstrap</p>
+            <h3>Load your workspace</h3>
+            <div class="workspace-picker" data-workspace-list></div>
+            <p class="muted auth-note">Sign in first, then AuraFlow can load your existing workspace or bootstrap one if your account is still empty.</p>
+            <button class="ghost-button" type="button" data-create-workspace>Sign in and bootstrap workspace</button>
+          </article>
+
+          <article class="auth-panel">
+            <p class="eyebrow">Session persistence</p>
+            <p>Your login session and selected workspace will remain active on refresh.</p>
+            <div class="check-item"><span>✅</span><div><strong>Auth session</strong><span>Stored locally until sign out</span></div></div>
+            <div class="check-item"><span>✅</span><div><strong>Workspace ID</strong><span>Saved for future app loads</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="app-shell simple-shell" hidden>
+      <aside class="sidebar" aria-label="Primary">
+        <div class="sidebar-mobile-head">
+          <div class="brand-block">
+            <img class="brand-logo" src="/assets/brand/logo.png" alt="AuraFlow" />
+            <div class="brand-copy">
+              <div class="brand-subtitle">AI Support OS</div>
+            </div>
+          </div>
+          <button class="icon-button mobile-close" type="button" data-close-nav>Close</button>
+        </div>
+
+        <button class="workspace-switcher" type="button" data-action="focus-settings">
+          <div>
+            <div class="workspace-label">Workspace</div>
+            <strong>Northstar Commerce</strong>
+          </div>
+          <span class="workspace-pill" data-runtime-badge>Support team</span>
+        </button>
+
+        <nav class="nav-groups">
+          <section class="nav-group">
+            <h2>Support Ops</h2>
+            <div class="nav-list">
+              <button class="nav-item active" type="button" data-screen="agent"><span class="nav-item-icon">AG</span><span class="nav-item-copy"><span class="nav-item-label">Agent</span><span class="nav-item-hint">Build + rules</span></span></button>
+              <button class="nav-item" type="button" data-screen="inbox"><span class="nav-item-icon">IN</span><span class="nav-item-copy"><span class="nav-item-label">Inbox</span><span class="nav-item-hint">Customer chats</span></span></button>
+              <button class="nav-item" type="button" data-screen="deploy"><span class="nav-item-icon">DP</span><span class="nav-item-copy"><span class="nav-item-label">Deploy</span><span class="nav-item-hint">Channels</span></span></button>
+              <button class="nav-item" type="button" data-screen="outreach"><span class="nav-item-icon">FL</span><span class="nav-item-copy"><span class="nav-item-label">Follow-up</span><span class="nav-item-hint">Email sequences</span></span></button>
+            </div>
+          </section>
+
+          <section class="nav-group">
+            <h2>Platform</h2>
+            <div class="nav-list">
+              <button class="nav-item" type="button" data-screen="data"><span class="nav-item-icon">DS</span><span class="nav-item-copy"><span class="nav-item-label">Data</span><span class="nav-item-hint">Sources + training</span></span></button>
+              <button class="nav-item" type="button" data-screen="analytics"><span class="nav-item-icon">AN</span><span class="nav-item-copy"><span class="nav-item-label">Analytics</span><span class="nav-item-hint">Performance</span></span></button>
+              <button class="nav-item" type="button" data-screen="settings"><span class="nav-item-icon">SE</span><span class="nav-item-copy"><span class="nav-item-label">Settings</span><span class="nav-item-hint">Workspace</span></span></button>
+            </div>
+          </section>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="mini-status success" data-supabase-state>WhatsApp + email connected</div>
+          <div class="mini-status muted" data-nango-state>3 channels waiting to be added</div>
+        </div>
+      </aside>
+
+      <button class="backdrop" aria-label="Close navigation" type="button" data-close-nav hidden></button>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="topbar-heading">
+            <button class="icon-button mobile-menu" type="button" data-open-nav>Menu</button>
+            <div>
+              <p class="eyebrow">AuraFlow workspace</p>
+              <h1>AI Support Console</h1>
+              <p class="lead">One branded workspace for omnichannel conversations, lead capture, and AI-guided follow-up.</p>
+            </div>
+          </div>
+          <div class="topbar-actions">
+            <button class="ghost-button" type="button" data-action="refresh-runtime">Refresh channels</button>
+            <button class="primary-button" type="button" data-action="focus-agent">New agent</button>
+          </div>
+        </header>
+
+        <main class="page-shell">
+          <section class="grid stats-grid compact">
+            <article class="stat-card">
+              <span class="eyebrow" data-metric-label="resolved">Open conversations</span>
+              <strong data-metric="resolved">128</strong>
+              <div class="stat-delta positive" data-metric-detail="resolved">Live workspace load</div>
+            </article>
+            <article class="stat-card">
+              <span class="eyebrow" data-metric-label="first-reply">Avg. first reply</span>
+              <strong data-metric="first-reply">2m 41s</strong>
+              <div class="stat-delta positive" data-metric-detail="first-reply">Calculated from message history</div>
+            </article>
+            <article class="stat-card">
+              <span class="eyebrow" data-metric-label="channels">Connected channels</span>
+              <strong data-metric="channels">6</strong>
+              <div class="stat-delta neutral" data-metric-detail="channels">WhatsApp, email, socials</div>
+            </article>
+            <article class="stat-card">
+              <span class="eyebrow" data-metric-label="followups">Active sequences</span>
+              <strong data-metric="followups">243</strong>
+              <div class="stat-delta positive" data-metric-detail="followups">Email and WhatsApp follow-up flows</div>
+            </article>
+          </section>
+
+          <section class="workspace-grid">
+            <article class="panel panel-wide" data-section="agent">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Primary agent</p>
+                  <h2>Northstar Support Agent</h2>
+                  <p class="lead">Handles support, sales replies, and outbound follow-up with human handoff when needed.</p>
+                </div>
+                <div class="tabs">
+                  <button class="tab active" type="button">Active</button>
+                  <button class="tab" type="button">Draft</button>
+                  <button class="tab" type="button">Paused</button>
+                </div>
+              </div>
+
+              <div class="two-column simple-two-column">
+                <div class="focus-card">
+                  <div class="focus-top">
+                    <span class="badge success">Deployed</span>
+                    <strong>Connected channels</strong>
+                  </div>
+                  <p>Let the same agent answer customers on WhatsApp, Instagram, Messenger, and email without changing the experience.</p>
+
+                  <div class="composer-actions">
+                    <button class="ghost-button compact" type="button" data-action="sync-configured-channels">Sync configured channels</button>
+                    <button class="ghost-button compact" type="button" data-action="seed-gmail-thread">Seed Gmail thread</button>
+                    <button class="ghost-button compact" type="button" data-action="seed-whatsapp-thread">Seed WhatsApp thread</button>
+                  </div>
+                  <div class="mini-status muted" data-ingest-status>Inbound sync will appear here.</div>
+                  <div class="deploy-grid" data-provider-grid>
+                    <div class="mini-status muted">Provider readiness will load here.</div>
+                  </div>
+                </div>
+
+                <div class="focus-card">
+                  <div class="focus-top">
+                    <span class="badge neutral">Guardrails</span>
+                    <strong>Agent configuration</strong>
+                  </div>
+                  <p>The agent answers FAQs, qualifies leads, escalates unhappy customers, and suggests the next best action.</p>
+                  <div class="modal-grid">
+                    <label><span>Agent name</span><input type="text" data-agent-name placeholder="Northstar Support Agent" /></label>
+                    <label><span>Tone</span><input type="text" data-agent-tone placeholder="balanced" /></label>
+                    <label><span>Knowledge sources</span><input type="text" data-agent-sources placeholder="support policy, pricing docs, onboarding guide" /></label>
+                    <label><span>Status</span><input type="text" data-agent-status placeholder="active" /></label>
+                    <label><span>Instructions</span><textarea rows="5" data-agent-instructions placeholder="Answer clearly, escalate billing risk, and protect refunds workflow."></textarea></label>
+                  </div>
+                  <div class="composer-actions">
+                    <button class="primary-button compact" type="button" data-action="save-agent-config">Save agent</button>
+                  </div>
+                  <div class="mini-status muted" data-agent-status-note>Agent config is ready.</div>
+                  <div class="source-list" data-agent-source-list>
+                    <div class="check-item"><span>•</span><div><strong>No saved guardrails yet</strong><span>Save agent instructions to persist them in Supabase.</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel" data-section="inbox">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Inbox</p>
+                  <h2>Live conversations</h2>
+                </div>
+                <span class="badge accent" data-inbox-count>18 waiting</span>
+              </div>
+              <div class="inbox-layout">
+                <div class="auth-panel inbox-list-panel">
+                  <div class="conversation-list" data-dashboard-conversations>
+                    <div class="mini-status muted">No conversations synced yet.</div>
+                  </div>
+                </div>
+                <div class="auth-panel inbox-detail-panel">
+                  <div class="panel-head">
+                    <div>
+                      <p class="eyebrow">Conversation detail</p>
+                      <h3 data-selected-conversation-title>Select a conversation</h3>
+                    </div>
+                    <span class="badge neutral" data-selected-conversation-channel>Waiting</span>
+                  </div>
+                  <div class="detail-meta">
+                    <div><span>Status</span><strong data-selected-conversation-status>Not loaded</strong></div>
+                    <div><span>Owner</span><strong data-selected-conversation-owner>Unassigned</strong></div>
+                    <div><span>Last update</span><strong data-selected-conversation-updated>Recently</strong></div>
+                  </div>
+                  <div class="thread" data-message-thread>
+                    <div class="mini-status muted">Select a conversation to inspect the thread.</div>
+                  </div>
+                  <div class="composer-box">
+                    <div class="panel-head">
+                      <div>
+                        <p class="eyebrow">AI assist</p>
+                        <h3>Generate for selected conversation</h3>
+                      </div>
+                      <div class="composer-actions">
+                        <button class="primary-button compact" type="button" data-action="generate-ai-briefing">Run AI brief</button>
+                        <button class="ghost-button compact" type="button" data-action="generate-ai-summary">Summarize</button>
+                        <button class="ghost-button compact" type="button" data-action="generate-ai-classification">Classify</button>
+                        <button class="ghost-button compact" type="button" data-action="generate-ai-next-action">Next action</button>
+                        <button class="ghost-button compact" type="button" data-action="generate-ai-reply">Generate draft</button>
+                      </div>
+                    </div>
+                    <div class="mini-status muted" data-ai-status>Ready to generate an AI brief, summary, recommendation, or reply draft.</div>
+                    <div class="metric-rows">
+                      <div><strong>Summary</strong><span data-ai-summary>No summary yet.</span></div>
+                      <div><strong>Classification</strong><span data-ai-classification>No classification yet.</span></div>
+                      <div><strong>Next action</strong><span data-ai-next-action>No recommendation yet.</span></div>
+                    </div>
+                    <textarea rows="6" data-ai-reply-output placeholder="AI draft reply will appear here."></textarea>
+                    <div class="composer-actions">
+                      <button class="primary-button compact" type="button" data-action="send-reply">Send reply</button>
+                      <button class="ghost-button compact" type="button" data-action="queue-reply">Queue reply</button>
+                    </div>
+                    <div class="mini-status muted" data-reply-status>Drafts can be sent or queued back into Supabase.</div>
+                  </div>
+                </div>
+                <div class="auth-panel inbox-side-panel">
+                  <div class="side-card">
+                    <p class="eyebrow">Handoff</p>
+                    <label><span>Assign owner</span><input type="text" data-assignment-input placeholder="Ada" /></label>
+                    <div class="composer-actions">
+                      <button class="ghost-button compact" type="button" data-action="assign-conversation">Assign</button>
+                      <button class="primary-button compact" type="button" data-action="escalate-conversation">Escalate</button>
+                    </div>
+                  </div>
+                  <div class="side-card">
+                    <p class="eyebrow">Internal note</p>
+                    <textarea rows="5" data-internal-note-input placeholder="Add context for the next human handoff."></textarea>
+                    <div class="composer-actions">
+                      <button class="primary-button compact" type="button" data-action="add-internal-note">Save note</button>
+                    </div>
+                  </div>
+                  <div class="side-card">
+                    <p class="eyebrow">Activity log</p>
+                    <div class="source-list" data-activity-log>
+                      <div class="check-item"><span>•</span><div><strong>No activity yet</strong><span>Assignments and notes will appear here.</span></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel" data-section="outreach">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Follow-up</p>
+                  <h2>Email sequences</h2>
+                </div>
+                <button class="ghost-button compact" type="button" data-action="open-sequence-modal">New sequence</button>
+              </div>
+
+              <div class="automation-list">
+                <article class="automation-card">
+                  <div class="automation-top"><span class="badge success">Live</span><span class="badge neutral">3 steps</span></div>
+                  <strong>Post-demo follow-up</strong>
+                  <p>Send recap, answer objections, and remind the lead after 48 hours.</p>
+                  <div class="automation-footer"><span>42 sent today</span><strong>Email + WhatsApp</strong></div>
+                </article>
+                <article class="automation-card">
+                  <div class="automation-top"><span class="badge success">Live</span><span class="badge neutral">5 steps</span></div>
+                  <strong>Cold outreach</strong>
+                  <p>Reach out to new prospects with a short intro, value proposition, and booking link.</p>
+                  <div class="automation-footer"><span>91 sent today</span><strong>Email</strong></div>
+                </article>
+                <article class="automation-card">
+                  <div class="automation-top"><span class="badge warning">Draft</span><span class="badge neutral">Needs review</span></div>
+                  <strong>Abandoned checkout</strong>
+                  <p>Recover failed purchases with support-first follow-up and a discount prompt.</p>
+                  <div class="automation-footer"><span>13 pending</span><strong>Triggered</strong></div>
+                </article>
+              </div>
+            </article>
+
+            <article class="panel" data-section="data">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Data</p>
+                  <h2>Training sources</h2>
+                </div>
+                <span class="badge neutral">Auto sync on</span>
+              </div>
+
+              <div class="source-list">
+                <div class="check-item"><span>📄</span><div><strong>Website docs</strong><span>Help pages, pricing, and onboarding guides</span></div></div>
+                <div class="check-item"><span>💬</span><div><strong>Past chats</strong><span>Resolved support threads and sales conversations</span></div></div>
+                <div class="check-item"><span>🧾</span><div><strong>Refund policies</strong><span>Decision tree for approval and escalation</span></div></div>
+                <div class="check-item"><span>📦</span><div><strong>Order history</strong><span>Customer purchase context for support replies</span></div></div>
+              </div>
+            </article>
+
+            <article class="panel" data-section="analytics">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Other ops</p>
+                  <h2>Revenue support</h2>
+                </div>
+                <span class="badge accent">Kept simple</span>
+              </div>
+
+              <div class="grid outcome-grid">
+                <article class="panel-subcard">
+                  <span class="eyebrow">Pipeline</span>
+                  <strong data-live-ops="pipeline">$603k forecast</strong>
+                  <p class="lead" data-live-ops-detail="pipeline">Deals are still tracked, but secondary to the support agent workflow.</p>
+                </article>
+                <article class="panel-subcard">
+                  <span class="eyebrow">Refunds</span>
+                  <strong data-live-ops="refunds">7 open cases</strong>
+                  <p class="lead" data-live-ops-detail="refunds">Approval and recovery steps stay visible for finance and support.</p>
+                </article>
+                <article class="panel-subcard">
+                  <span class="eyebrow">Analytics</span>
+                  <strong data-live-ops="analytics">91% solve rate</strong>
+                  <p class="lead" data-live-ops-detail="analytics">Track response time, handoff rate, and follow-up conversion.</p>
+                </article>
+              </div>
+            </article>
+
+            <article class="panel panel-wide" data-section="voice">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Voice receptionist</p>
+                  <h2>Outbound calls and voice notes</h2>
+                </div>
+                <span class="badge success">Consent-based</span>
+              </div>
+              <div class="two-column simple-two-column">
+                <div class="focus-card">
+                  <div class="focus-top">
+                    <span class="badge accent">Call flow</span>
+                    <strong>Prospect follow-up</strong>
+                  </div>
+                  <p>Call warm leads, confirm interest, leave branded voice notes, and transfer the lead to a real person when needed.</p>
+                  <div class="metric-inline">
+                    <div><strong data-voice-metric="calls">18</strong><span>Calls queued</span></div>
+                    <div><strong data-voice-metric="transfers">7</strong><span>Transfers</span></div>
+                    <div><strong data-voice-metric="notes">24</strong><span>Voice notes</span></div>
+                  </div>
+                </div>
+                <div class="focus-card">
+                  <div class="focus-top">
+                    <span class="badge warning">Voice profiles</span>
+                    <strong>Approved voices only</strong>
+                  </div>
+                  <p>Use your own voice or other voice profiles only when you have permission and the persona is clearly disclosed during the interaction.</p>
+                  <div class="source-list" data-voice-profiles-list>
+                    <div class="check-item"><span>✅</span><div><strong>No voice profiles yet</strong><span>Create the first approved voice below.</span></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="voice-grid">
+                <article class="auth-panel">
+                  <p class="eyebrow">Voice profile</p>
+                  <div class="modal-grid">
+                    <label><span>Name</span><input type="text" data-voice-profile-name placeholder="Founder voice" /></label>
+                    <label><span>Label</span><input type="text" data-voice-profile-label placeholder="Primary receptionist voice" /></label>
+                    <label><span>Source</span><input type="text" data-voice-profile-source placeholder="original" /></label>
+                    <label><span>Prompt style</span><input type="text" data-voice-profile-style placeholder="Warm, direct, appointment-focused" /></label>
+                  </div>
+                  <div class="modal-actions">
+                    <button class="primary-button" type="button" data-action="create-voice-profile">Save voice profile</button>
+                  </div>
+                </article>
+                <article class="auth-panel">
+                  <p class="eyebrow">Queue call</p>
+                  <div class="modal-grid">
+                    <label><span>Contact</span><select data-voice-session-contact></select></label>
+                    <label><span>Voice profile</span><select data-voice-session-profile></select></label>
+                    <label><span>Status</span><input type="text" data-voice-session-status value="queued" /></label>
+                    <label><span>Disclosure</span><input type="text" data-voice-session-disclosure value="This is AuraFlow's AI receptionist calling on behalf of the team." /></label>
+                  </div>
+                  <div class="modal-actions">
+                    <button class="primary-button" type="button" data-action="queue-voice-call">Queue call</button>
+                  </div>
+                </article>
+              </div>
+              <div class="voice-grid">
+                <article class="auth-panel">
+                  <p class="eyebrow">Draft voice note</p>
+                  <div class="modal-grid">
+                    <label><span>Contact</span><select data-voice-note-contact></select></label>
+                    <label><span>Voice profile</span><select data-voice-note-profile></select></label>
+                    <label><span>Title</span><input type="text" data-voice-note-title placeholder="Demo reminder" /></label>
+                    <label><span>Body</span><textarea rows="4" data-voice-note-body placeholder="Hi, this is AuraFlow's AI receptionist following up on your demo request."></textarea></label>
+                  </div>
+                  <div class="modal-actions">
+                    <button class="primary-button" type="button" data-action="save-voice-note">Save voice note</button>
+                  </div>
+                </article>
+                <article class="auth-panel">
+                  <p class="eyebrow">Live voice queue</p>
+                  <div class="source-list" data-voice-sessions-list>
+                    <div class="check-item"><span>•</span><div><strong>No queued calls yet</strong><span>Queue a call to populate this list.</span></div></div>
+                  </div>
+                  <p class="eyebrow">Voice notes</p>
+                  <div class="source-list" data-voice-notes-list>
+                    <div class="check-item"><span>•</span><div><strong>No voice notes yet</strong><span>Save a voice note draft to populate this list.</span></div></div>
+                  </div>
+                </article>
+              </div>
+            </article>
+
+            <article class="panel panel-wide" data-section="settings">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Real contacts</p>
+                  <h2>Supabase contact list</h2>
+                </div>
+                <span class="badge neutral" data-contacts-count>Demo contacts</span>
+              </div>
+              <div class="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Stage</th>
+                      <th>Owner</th>
+                      <th>Last seen</th>
+                      <th>Lifetime value</th>
+                    </tr>
+                  </thead>
+                  <tbody data-contacts-rows>
+                    <tr>
+                      <td><strong>Maya Chen</strong><span>Brightlane Studio</span></td>
+                      <td><span class="badge neutral">SQL</span></td>
+                      <td>Ada</td>
+                      <td>2m ago</td>
+                      <td>$18,420</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" data-modal hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Create follow-up sequence">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">Create follow-up</p>
+            <h3>New sequence</h3>
+          </div>
+          <button class="icon-button" type="button" data-close-modal>Close</button>
+        </div>
+        <div class="modal-grid">
+          <label><span>Trigger</span><input type="text" data-sequence-trigger value="No reply after 48 hours" /></label>
+          <label><span>Channel</span><input type="text" value="Email + WhatsApp" /></label>
+          <label><span>Goal</span><input type="text" value="Book a meeting or recover the lead" /></label>
+          <label><span>Owner</span><input type="text" value="Sales + Support" /></label>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" data-close-modal>Cancel</button>
+          <button class="primary-button" type="button" data-action="save-sequence">Save sequence</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+        <script type="module" src="/src/controllers/preview-bootstrap.js"></script>
+  </body>
+</html>

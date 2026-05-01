@@ -1,0 +1,12 @@
+# Local Netlify folder
+.netlify
+node_modules/
+*.log
+.env
+.env.local
+supabase-secrets.env
+.next/
+dist/
+.codex-temp/
+.auraflow/job-queue-state.json
+.auraflow/webhook-replay-state.json

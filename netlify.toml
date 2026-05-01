@@ -1,0 +1,64 @@
+[build]
+  command = "node scripts/sync-static.mjs"
+  publish = "dist"
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/data-deletion"
+  to = "/data-deletion.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/dashboard/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/preview.html"
+  to = "/dashboard"
+  status = 301
+
+[[redirects]]
+  from = "/api/webhook/whatsapp"
+  to = "/.netlify/functions/webhook-router?provider=whatsapp"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/webhook/instagram"
+  to = "/.netlify/functions/webhook-router?provider=instagram"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/webhook/messenger"
+  to = "/.netlify/functions/webhook-router?provider=messenger"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/webhook/facebook"
+  to = "/.netlify/functions/webhook-router?provider=facebook"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/webhook/gmail"
+  to = "/.netlify/functions/webhook-router?provider=gmail"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/webhooks/gmail"
+  to = "/.netlify/functions/webhook-router?provider=gmail"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,5 @@
+[functions.api-webhook]
+verify_jwt = false
+
+[functions.voice-handler]
+verify_jwt = false

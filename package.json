@@ -1,0 +1,24 @@
+{
+  "name": "auraflow",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "node scripts/sync-static.mjs",
+    "preview": "node server.js",
+    "start": "node server.js",
+    "check": "node --check server.js",
+    "deploy:netlify": "netlify deploy",
+    "deploy:netlify:prod": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.100.1",
+    "next": "^16.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "ws": "^8.20.0"
+  },
+  "devDependencies": {
+    "supabase": "^2.84.4"
+  }
+}

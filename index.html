@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraFlow | Omnichannel AI Inbox for Leads, Support, and Follow-up</title>
+    <meta
+      name="description"
+      content="AuraFlow by Neway Marketing Enterprises helps teams capture leads, answer customers, and automate follow-up across Gmail, Facebook, Instagram, Messenger, and WhatsApp."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content="AuraFlow" />
+    <meta property="og:description" content="One branded AI workspace for omnichannel conversations, lead capture, and follow-up." />
+    <meta property="og:image" content="https://auraflow-neway.netlify.app/assets/brand/og-preview.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/x-icon" href="/assets/brand/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/assets/brand/logo-mark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+    <script>
+      (function () {
+        var resolved = 'light';
+        try {
+          var raw = window.localStorage.getItem('auraflow.ui-state');
+          var parsed = raw ? JSON.parse(raw) : {};
+          var preference = String((parsed && parsed.themePreference) || 'system').toLowerCase();
+          if (!['system', 'light', 'dark'].includes(preference)) preference = 'system';
+          resolved = preference === 'system'
+            ? (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : preference;
+        } catch (error) {
+          resolved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+        var themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) themeMeta.setAttribute('content', resolved === 'light' ? '#ffffff' : '#8f2fff');
+      })();
+    </script>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div class="landing-page" data-landing-page>
+      <header class="landing-header" data-landing-header>
+        <a class="landing-brand" href="/" aria-label="AuraFlow home">
+          <img class="landing-logo landing-logo-dark-theme" src="/assets/brand/logo.png" alt="AuraFlow" />
+          <img class="landing-logo landing-logo-light-theme" src="/assets/brand/logo-dark.png" alt="" aria-hidden="true" />
+        </a>
+        <nav class="landing-nav" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#demo">Try it now</a>
+          <a href="/dashboard" class="ghost-button compact">Open dashboard</a>
+        </nav>
+      </header>
+
+      <main class="landing-shell">
+        <section class="landing-hero">
+          <div class="landing-hero-copy" data-hero-copy>
+            <span class="landing-kicker landing-reveal" style="--reveal-delay: 0.05s;">AI inbox for modern operators</span>
+            <h1 class="landing-hero-title" aria-label="Capture leads, answer customers, and automate follow-up from one workspace.">
+              <span class="landing-title-line landing-reveal" style="--reveal-delay: 0.12s;">Capture leads, answer customers,</span>
+              <span class="landing-title-line landing-reveal" style="--reveal-delay: 0.22s;">and automate follow-up</span>
+              <span class="landing-title-line landing-reveal accent" style="--reveal-delay: 0.32s;">from one workspace.</span>
+            </h1>
+            <p class="landing-reveal" style="--reveal-delay: 0.42s;">
+              AuraFlow brings Gmail, Facebook leads, Messenger, Instagram, and WhatsApp into one premium support console with AI guidance, cleaner handoffs, and faster response times.
+            </p>
+            <div class="landing-hero-actions landing-reveal" style="--reveal-delay: 0.52s;">
+              <a href="/dashboard" class="primary-button">Get started</a>
+              <a href="#demo" class="ghost-button">Try it now</a>
+            </div>
+            <div class="landing-proof-row landing-reveal" style="--reveal-delay: 0.62s;">
+              <div class="landing-proof-pill"><strong>Omnichannel</strong><span>Gmail, Meta, WhatsApp</span></div>
+              <div class="landing-proof-pill"><strong>AI-first</strong><span>Brief, route, and reply</span></div>
+              <div class="landing-proof-pill"><strong>Review-ready</strong><span>Privacy and deletion pages included</span></div>
+            </div>
+          </div>
+          <div class="landing-hero-card">
+            <div class="landing-orbit-stage">
+              <div class="landing-orbit-core">
+                <img src="/assets/brand/logo-mark.png" alt="AuraFlow logo mark" />
+              </div>
+              <div class="landing-orbit ring-one">
+                <div class="landing-orbit-node gmail">Gmail</div>
+                <div class="landing-orbit-node whatsapp">WhatsApp</div>
+                <div class="landing-orbit-node meta">Meta</div>
+                <div class="landing-orbit-node voice">Voice calls</div>
+                <div class="landing-orbit-node sms">SMS</div>
+              </div>
+              <div class="landing-orbit ring-two">
+                <div class="landing-orbit-dot dot-one"></div>
+                <div class="landing-orbit-dot dot-two"></div>
+                <div class="landing-orbit-dot dot-three"></div>
+              </div>
+            </div>
+            <div class="landing-window landing-dashboard-preview" data-reveal="up">
+              <div class="landing-window-top">
+                <span class="badge accent">Live workflow</span>
+                <span class="mini-status">Northstar Commerce</span>
+              </div>
+              <div class="landing-window-grid">
+                <article class="landing-signal-card">
+                  <span class="eyebrow">Leads this week</span>
+                  <strong data-count-up="41">0</strong>
+                  <span>Facebook, Gmail, and website enquiries</span>
+                </article>
+                <article class="landing-signal-card">
+                  <span class="eyebrow">AI responses sent</span>
+                  <strong data-count-up="123">0</strong>
+                  <span>Support, sales, and follow-up assistance</span>
+                </article>
+                <article class="landing-signal-card">
+                  <span class="eyebrow">Channel health</span>
+                  <strong>4/4 ready</strong>
+                  <span>Gmail, Facebook, Messenger, WhatsApp</span>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="landing-section" id="services">
+          <div class="landing-section-head" data-reveal="up">
+            <span class="landing-kicker">Services</span>
+            <h2>Built for lead capture, support, and follow-up in one flow.</h2>
+            <p>Everything is shaped around the way an operations team actually works: one queue, one customer record, and one place to decide the next move.</p>
+          </div>
+          <div class="landing-card-grid landing-card-grid-3">
+            <article class="landing-card landing-tilt-card" data-reveal="up" data-tilt-card>
+              <span class="badge neutral">Lead capture</span>
+              <h3>Collect and qualify every inbound lead</h3>
+              <p>Pull in Gmail enquiries and Facebook or Instagram lead ads, hydrate contact details, and route each lead to the right owner with AI support.</p>
+            </article>
+            <article class="landing-card landing-tilt-card" data-reveal="up" data-tilt-card>
+              <span class="badge neutral">Unified inbox</span>
+              <h3>Work support and sales from one queue</h3>
+              <p>Bring together email, Messenger, Instagram, and WhatsApp so operators can reply faster without losing context between channels.</p>
+            </article>
+            <article class="landing-card landing-tilt-card" data-reveal="up" data-tilt-card>
+              <span class="badge neutral">Follow-up engine</span>
+              <h3>Turn conversations into structured follow-up</h3>
+              <p>Create email and chat sequences, let AI suggest next actions, and keep your pipeline moving after the first conversation ends.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="landing-section landing-chatbase-section" id="demo">
+          <div class="landing-section-head" data-reveal="up">
+            <span class="landing-kicker">Try it now</span>
+            <h2>See the Chatbase-style AI handoff in action.</h2>
+            <p>AuraFlow's AI reads the thread, spots intent, and prepares the operator with a summary, response, and next-best action before anyone has to hunt for context.</p>
+          </div>
+          <div class="landing-chat-demo">
+            <div class="landing-chat-window landing-terminal" data-reveal="up">
+              <div class="landing-chat-header">
+                <div>
+                  <strong>Try AuraFlow live</strong>
+                  <span>Mini AI operator terminal</span>
+                </div>
+                <span class="badge success">AI ready</span>
+              </div>
+              <div class="landing-terminal-output" data-terminal-output>
+                <div class="landing-terminal-line muted">$ Paste a customer message and watch the AI prep the operator.</div>
+              </div>
+              <div class="landing-terminal-composer">
+                <label class="landing-terminal-label" for="landing-demo-input">Sample customer message</label>
+                <textarea id="landing-demo-input" data-demo-input rows="4">Hi, I saw your Facebook ad. Can someone tell me pricing and whether setup works with WhatsApp and Gmail?</textarea>
+                <div class="landing-terminal-actions">
+                  <button type="button" class="ghost-button compact" data-demo-preset="pricing">Load pricing lead</button>
+                  <button type="button" class="ghost-button compact" data-demo-preset="support">Load support request</button>
+                  <button type="button" class="primary-button compact" data-demo-run>Run AI demo</button>
+                </div>
+              </div>
+            </div>
+            <aside class="landing-chat-sidecard landing-demo-summary" data-reveal="up">
+              <span class="eyebrow">What the operator sees</span>
+              <ul class="landing-feature-list">
+                <li>Thread summary before replying</li>
+                <li>Suggested assignee and next action</li>
+                <li>Draft response ready for email or chat</li>
+                <li>Follow-up sequence suggestions when the lead is warm</li>
+              </ul>
+              <div class="landing-ai-summary-card" data-demo-summary>
+                <strong>AI status</strong>
+                <p>Run the terminal to generate an intent read, owner hint, and draft reply in real time.</p>
+              </div>
+              <a href="/dashboard?screen=home" class="primary-button compact">Open the live dashboard</a>
+            </aside>
+          </div>
+        </section>
+
+        <section class="landing-section" id="pricing">
+          <div class="landing-section-head" data-reveal="up">
+            <span class="landing-kicker">Pricing</span>
+            <h2>Simple plans for teams growing into omnichannel support.</h2>
+            <p>Start with the operator workflow, then scale into more connected channels, more AI activity, and stronger collaboration.</p>
+          </div>
+          <div class="pricing-table">
+            <article class="pricing-card" data-reveal="up">
+              <span class="badge neutral">Starter</span>
+              <h3>$49<span>/mo</span></h3>
+              <p>For a single operator validating Gmail + Meta lead capture.</p>
+              <ul class="landing-feature-list">
+                <li>1 workspace</li>
+                <li>Gmail and Meta connections</li>
+                <li>AI briefs and reply drafting</li>
+                <li>Basic follow-up sequences</li>
+              </ul>
+              <a href="/dashboard" class="ghost-button">Start with Starter</a>
+            </article>
+            <article class="pricing-card pricing-card-featured" data-reveal="up">
+              <span class="badge accent">Growth</span>
+              <h3>$149<span>/mo</span></h3>
+              <p>For teams handling live support, new leads, and follow-up in one queue.</p>
+              <ul class="landing-feature-list">
+                <li>Multi-user workspace</li>
+                <li>WhatsApp, Messenger, Instagram, Gmail</li>
+                <li>AI routing and qualification</li>
+                <li>Workspace connections per client</li>
+              </ul>
+              <a href="/dashboard" class="primary-button">Choose Growth</a>
+            </article>
+            <article class="pricing-card" data-reveal="up">
+              <span class="badge neutral">Scale</span>
+              <h3>Custom</h3>
+              <p>For agencies, client workspaces, and higher-volume support operations.</p>
+              <ul class="landing-feature-list">
+                <li>Advanced channel rollout</li>
+                <li>Lead alerts and workflow controls</li>
+                <li>Priority onboarding</li>
+                <li>Custom deployment guidance</li>
+              </ul>
+              <a href="/dashboard?screen=settings" class="ghost-button">Talk to sales</a>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="landing-footer">
+        <div class="landing-footer-column">
+          <strong>AuraFlow</strong>
+          <p>Owned and operated by Neway Marketing Enterprises.</p>
+          <p>Port Harcourt, Rivers State, Nigeria</p>
+        </div>
+        <div class="landing-footer-column">
+          <strong>Contact</strong>
+          <p><a href="mailto:newayagency247@gmail.com">newayagency247@gmail.com</a></p>
+          <p><a href="/dashboard">Open dashboard</a></p>
+        </div>
+        <div class="landing-footer-column">
+          <strong>Legal</strong>
+          <div class="legal-links">
+            <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>
+            <a href="/data-deletion" target="_blank" rel="noreferrer">Data Deletion</a>
+          </div>
+          <p>Facebook Lead Ads, WhatsApp, Gmail, and connected workspace data are handled according to our published platform policies.</p>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/landing.js"></script>
+  </body>
+</html>
